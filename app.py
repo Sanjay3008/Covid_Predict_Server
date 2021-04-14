@@ -45,10 +45,8 @@ def Covid_predict():
 #   p20 =data["p20"]
 
 #   res = predict(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20)
-  res = predict(0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1)
-  return {
-                'covid_infected': str(res[0])
-            }
+  res = predict(1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+  return {'covid_infected': str(res[0])}
   
 @app.route("/",methods=['GET'])
 def default():
