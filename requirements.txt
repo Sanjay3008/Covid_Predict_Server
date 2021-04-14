@@ -3,3 +3,4 @@ numpy>=1.9.2
 pandas>=0.15
 scipy>=0.15.1
 gunicorn==19.9.0
+sklearn==0.22.2
