@@ -5,9 +5,8 @@ app = Flask(__name__)
 
 
 
-@app.route("/covid_predict",methods=['GET'])
+@app.route("/covid_predict/",methods=['POST','GET'])
 def Covid_predict():
-
 #   data=request.get_json();
 #   p1 = data["p1"]
 #   p2 = data["p2"]
@@ -42,10 +41,8 @@ def Covid_predict():
   for i in range(0,20):
     X[:,i]=encoder.fit_transform(X[:,i])
   Y = encoder.fit_transform(Y)
-            
   X = np.asarray(X)
   Y = np.asarray(Y)
-  
   from sklearn.linear_model import LogisticRegression
   logreg = LogisticRegression()
   logreg.fit(X, Y)
