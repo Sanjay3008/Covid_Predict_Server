@@ -20,12 +20,13 @@ def covid_pred(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p1
             
   from sklearn.preprocessing import LabelEncoder
   encoder = LabelEncoder()
+  return "HI"
   for i in range(0,20):
     X[:,i]=encoder.fit_transform(X[:,i])
   Y = encoder.fit_transform(Y)
   X = np.asarray(X)
   Y = np.asarray(Y)
-  return "HI"
+ 
   from sklearn.linear_model import LogisticRegression
   logreg = LogisticRegression()
   logreg.fit(X, Y)
