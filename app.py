@@ -1,10 +1,30 @@
+import pandas as pd
+import numpy as np
 from flask import Flask, request, jsonify
 import pickle
 
 app = Flask(__name__)
 
 
-
+def covid_pred(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20):
+  dataset=pd.read_csv("COVID.csv")
+  X=dataset.iloc[:,:-1].values
+  Y = dataset.iloc[:,-1].values
+            
+  from sklearn.preprocessing import LabelEncoder
+  encoder = LabelEncoder()
+  for i in range(0,20):
+    X[:,i]=encoder.fit_transform(X[:,i])
+  Y = encoder.fit_transform(Y)
+  X = np.asarray(X)
+  Y = np.asarray(Y)
+  from sklearn.linear_model import LogisticRegression
+  logreg = LogisticRegression()
+  logreg.fit(X, Y)
+  res = logreg.predict([[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20]])
+  return str(res)
+  
+  
 @app.route("/covid_predict/",methods=['POST','GET'])
 def Covid_predict():
 #   data=request.get_json();
@@ -29,24 +49,7 @@ def Covid_predict():
 #   p19 =data["p19"]
 #   p20 =data["p20"]
 
-#   res = predict(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20)
-  import pandas as pd
-  import numpy as np
-  dataset=pd.read_csv("COVID.csv")
-  X=dataset.iloc[:,:-1].values
-  Y = dataset.iloc[:,-1].values
-            
-  from sklearn.preprocessing import LabelEncoder
-  encoder = LabelEncoder()
-  for i in range(0,20):
-    X[:,i]=encoder.fit_transform(X[:,i])
-  Y = encoder.fit_transform(Y)
-  X = np.asarray(X)
-  Y = np.asarray(Y)
-  from sklearn.linear_model import LogisticRegression
-  logreg = LogisticRegression()
-  logreg.fit(X, Y)
-  res = logreg.predict([[1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+  res = covid_pred(1,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,1,0,0)
   return str(res)
   
 @app.route("/",methods=['GET'])
