@@ -54,5 +54,4 @@ def default():
   return "<h1> Welcome to Cvoid predictor <h1>"
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+    app.run(debug = True)
