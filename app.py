@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-
+import pandas as pd
 import pickle
 import numpy as np
 app = Flask(__name__)
@@ -9,6 +9,8 @@ def predict(Breathing_Problem, Fever, Dry_Cough, Sore_throat, Running_Nose, Asth
             Heart_Disease, Diabetes, Hyper_Tension, Fatigue, Gastrointestinal, Abroad_travel,
             Contact_with_COVID_Patient, Attended_Large_Gathering, Visited_Public_Exposed_Places,
             Family_working_in_Public_Exposed_Places, Wearing_Masks, Sanitization_from_Market):
+ 
+
   with open("Covid_Model.pkl", 'rb') as file:
     model = pickle.load(file)
 
@@ -45,7 +47,25 @@ def Covid_predict():
 #   p20 =data["p20"]
 
 #   res = predict(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20)
-  res = predict(1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+  dataset=pd.read_csv("COVID.csv")
+  X=dataset.iloc[:,:-1].values
+  Y = dataset.iloc[:,-1].values
+            
+  from sklearn.preprocessing import LabelEncoder
+  encoder = LabelEncoder()
+  for i in range(0,20):
+    X[:,i]=encoder.fit_transform(X[:,i])
+  Y = encoder.fit_transform(Y)
+            
+  X = np.asarray(X)
+  Y = np.asarray(Y)
+  
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.model_selection import train_test_split
+  logreg = LogisticRegression()
+  logreg.fit(X, Y)
+
+  res = logreg.predict([[1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
   return str(res)
   
 @app.route("/",methods=['GET'])
