@@ -30,7 +30,7 @@ def covid_pred(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p1
   logreg = LogisticRegression()
   logreg.fit(X, Y)
   res = logreg.predict([[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20]])
-  return str(res)
+  return res
   
   
 @app.route("/covid_predict/",methods=['POST','GET'])
@@ -57,8 +57,11 @@ def Covid_predict():
   p19 =data["p19"]
   p20 =data["p20"]
 
-  res = covid_pred(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20)
-  return str(res)
+#   res = covid_pred(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20)
+  res = covid_pred(1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1)
+  return {
+    "covid":res
+  }
   
 @app.route("/",methods=['GET'])
 def default():
