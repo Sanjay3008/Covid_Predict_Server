@@ -63,7 +63,7 @@ def Covid_predict():
   res = covid_pred(1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1)
   result = {}
 #   y = json.dumps(result)
-  return y
+  return result
   
 @app.route("/",methods=['GET'])
 def default():
