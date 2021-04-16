@@ -5,6 +5,8 @@ import pickle
 import sys
 app = Flask(__name__)
 import logging
+import json
+
 
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
@@ -59,8 +61,11 @@ def Covid_predict():
 
 #   res = covid_pred(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20)
   res = covid_pred(1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1)
-  result = { "covid": res[0] }
-  return result
+  result = {
+  "covid": res[0]
+  }
+  y = json.dumps(result)
+  return y
   
 @app.route("/",methods=['GET'])
 def default():
